@@ -13,14 +13,12 @@ console.log(a);
 //Функция аналог Object.freeze() + обрататывает вложенные объекты
 function deepFreeze(a){
   Object.preventExtensions(a);
-  let keysA = Object.keys(a);
-  let valueA = Object.values(a);
-  for (let i = 0; i < keysA.length; i++){
-    if (valueA[i] instanceof Object){
-      deepFreeze(valueA[i]);
-    } else {
-      Object.defineProperty(a, keysA[i], { value: valueA[i], configurable: false, writable: false, enumerable: true });
-    }
+   for (let [key, value] of Object.entries(a)){
+      if (value instanceof Object){
+        deepFreeze(value);
+      } else {
+        Object.defineProperty(a, key, { value: value, configurable: false, writable: false, enumerable: true });
+      }
   }
   return a;  
 }
