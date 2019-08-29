@@ -7,20 +7,18 @@ var a = {
     c: 3}, 
   u: undefined, 
   v: null};
-
 console.log(a);  
 
 //Функция аналог Object.freeze() + обрататывает вложенные объекты
 function deepFreeze(a){
-  Object.preventExtensions(a);
    for (let [key, value] of Object.entries(a)){
       if (value instanceof Object){
         deepFreeze(value);
       } else {
-        Object.defineProperty(a, key, { value: value, configurable: false, writable: false, enumerable: true });
+        Object.defineProperty(a, key, {value: value, configurable: false, writable: false, enumerable: false });
       }
-  }
-  return a;  
+    }
+  Object.seal(a);  
 }
 
 deepFreeze(a);
