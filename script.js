@@ -15,7 +15,7 @@ function deepFreeze(a){
       if (value instanceof Object){
         deepFreeze(value);
       } else {
-        Object.defineProperty(a, key, {value: value, configurable: false, writable: false, enumerable: false });
+        Object.defineProperty(a, key, {value: value, configurable: false, writable: false, enumerable: true});
       }
     }
   Object.seal(a);  
